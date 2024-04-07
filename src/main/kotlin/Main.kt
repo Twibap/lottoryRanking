@@ -1,6 +1,8 @@
 package org.example
 
+import com.google.gson.GsonBuilder
 import org.jsoup.Jsoup
+import java.io.File
 
 //TIP 코드를 <b>실행</b>하려면 <shortcut actionId="Run"/>을(를) 누르거나
 // 에디터 여백에 있는 <icon src="AllIcons.Actions.Execute"/> 아이콘을 클릭하세요.
@@ -16,7 +18,7 @@ fun main() {
 
     val stores = HashMap<Int, Store>()
 
-    for (drwNo in 1000 .. 1114) {
+    for (drwNo in 1110 .. 1114) {
         val doc = Jsoup.connect(targetUrl)
             .data("method", method)
             .data("nowPage", nowPage.toString())
@@ -61,4 +63,19 @@ fun main() {
         println("$it wins ${it.countOfFirst.size}")
     }
 
+    val output = File("./out/output.txt")
+    saveObjectToFile(
+        GsonBuilder()
+            .setPrettyPrinting()
+            .create()
+            .toJson(stores),
+        output,
+    )
+
+}
+
+fun saveObjectToFile(obj: String, file: File) {
+    file.bufferedWriter().use { writer ->
+        writer.write(obj)
+    }
 }
