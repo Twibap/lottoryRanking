@@ -11,6 +11,7 @@ repositories {
 
 dependencies {
     implementation ("org.jsoup:jsoup:1.17.2")
+    implementation("com.google.code.gson:gson:2.9.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
